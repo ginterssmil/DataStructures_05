@@ -43,4 +43,33 @@ public class MyGraph<Ttype> {
 		System.gc();
 		
 	}
+	
+	public void addVertice(Ttype element) throws Exception {
+		if(element == null) {
+			throw new Exception("Ievades dati nav korekti");
+		}
+		
+		int indexOfVertice = findVerticeIndex(element);
+		if(indexOfVertice!=-1) {
+			throw new Exception("Tada virsotne " + element + "jau eksiste");
+		}
+		
+		if(isFull()) {
+			resize();
+		}
+		verticeNodes[howManyElements] = new MyVerticeNode<Ttype>(element);
+		howManyElements++;
+	}
+	
+	private int findVerticeIndex(Ttype element) {
+		
+		for(int i=0; i < howManyElements;i++) {
+			if(verticeNodes[i].getVerticeElement().equals(element)) {
+				return i;
+			}
+		}
+		
+		return -1;
+		
+	}
 }
